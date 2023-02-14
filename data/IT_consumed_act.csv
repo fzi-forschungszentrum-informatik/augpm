@@ -1,0 +1,25 @@
+case_id;activity;info_object_type;consumption_purpose;place_name_from_type
+1;Einflussfaktoren analysieren;Fahrer;Fahrerprofil berücksichtigen;
+1;Einflussfaktoren analysieren;Strecke;Streckenprofil berückischtigen;
+1;Einflussfaktoren analysieren;Fahrzeug;Fahrzeugprofil berücksichtigen;
+1;Reichweite schätzen;Einflussfaktoren;Reichweite schätzen;
+2;Einflussfaktoren analysieren;Fahrer;Fahrerprofil berücksichtigen;
+2;Einflussfaktoren analysieren;Strecke;Streckenprofil berückischtigen;
+2;Einflussfaktoren analysieren;Fahrzeug;Fahrzeugprofil berücksichtigen;
+2;Notsignal senden;Einflussfaktoren;Notsignal senden;
+3;Einflussfaktoren analysieren;Fahrer;Fahrerprofil berücksichtigen;
+3;Einflussfaktoren analysieren;Strecke;Streckenprofil berückischtigen;
+3;Einflussfaktoren analysieren;Fahrzeug;Fahrzeugprofil berücksichtigen;
+3;Reichweite schätzen;Einflussfaktoren;Reichweite schätzen;
+4;Einflussfaktoren analysieren;Fahrer;Fahrerprofil berücksichtigen;
+4;Einflussfaktoren analysieren;Strecke;Streckenprofil berückischtigen;
+4;Einflussfaktoren analysieren;Fahrzeug;Fahrzeugprofil berücksichtigen;
+4;Reichweite schätzen;Einflussfaktoren;Reichweite schätzen;
+5;Einflussfaktoren analysieren;Fahrer;Fahrerprofil berücksichtigen;
+5;Einflussfaktoren analysieren;Strecke;Streckenprofil berückischtigen;
+5;Einflussfaktoren analysieren;Fahrzeug;Fahrzeugprofil berücksichtigen;
+5;Reichweite schätzen;Einflussfaktoren;Reichweite schätzen;
+6;Einflussfaktoren analysieren;Fahrer;Fahrerprofil berücksichtigen;
+6;Einflussfaktoren analysieren;Strecke;Streckenprofil berückischtigen;
+6;Einflussfaktoren analysieren;Fahrzeug;Fahrzeugprofil berücksichtigen;
+6;Notsignal senden;Einflussfaktoren;Notsignal senden;
