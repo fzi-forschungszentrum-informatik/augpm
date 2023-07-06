@@ -22,19 +22,20 @@ from graphviz import Digraph
 
 
 def create_graphviz_digraph(
-        pl_net: PetriNet, pl_im: Marking = None,
-        pl_fm: Marking = None, decorations: dict = None,
+        icpl_net: PetriNet, icpl_im: Marking = None,
+        icpl_fm: Marking = None, decorations: dict = None,
         image_format: str = "png") -> Digraph:
     '''
-    Provides visualization for the Purpose Limitating Petri Net
+    Provide visualization for the Purpose Limitating Petri Net
 
     Parameters
     ----------
-    pl_net
-        Purpose Limitating Petri Net containing extended places and arcs
-    pl_im
+    icpl_net
+        Information Confidentiality and Purpose Limitating Petri Net 
+        containing extended transitions, places and arcs
+    icpl_im
         Initial marking
-    pl_fm
+    icpl_fm
         Final marking
     decorations
         Decorations of the Purpose Limitating Petri net 
@@ -44,94 +45,93 @@ def create_graphviz_digraph(
 
     Returns
     -------
-    pl_digraph
+    icpl_digraph
         Returns a graphviz Digraph object
     '''
 
-    if pl_im is None:
-        pl_im = Marking()
-    if pl_fm is None:
-        pl_fm = Marking()
+    if icpl_im is None:
+        icpl_im = Marking()
+    if icpl_fm is None:
+        icpl_fm = Marking()
     if decorations is None:
         decorations = {}
 
     filename = tempfile.NamedTemporaryFile(suffix='.gv')
-    pl_digraph = Digraph(
-        pl_net.name, filename=filename.name, engine='dot',
+    icpl_digraph = Digraph(
+        icpl_net.name, filename=filename.name, engine='dot',
         graph_attr={'bgcolor': 'white', 'rankdir': 'LR'})
 
     # transitions
-    pl_digraph.attr('node', shape='box',
-                    color='black', style='filled',
-                    fillcolor='grey85', fontsize='12')
-    for t in pl_net.transitions:
-        if t.label is not None:
-            if (
-                t in decorations
-                and 'label' in decorations[t]
-                and 'color' in decorations[t]
-            ):
+    icpl_digraph.attr('node', shape='box',
+                      color='black', style='filled',
+                      fillcolor='grey85', fontsize='12')
 
-                pl_digraph.node(
-                    str(id(t)), decorations[t]['label'], border='1',
-                    color=decorations[t]['color'])
-            else:
-                pl_digraph.node(str(id(t)), str(t.label))
+    for t in icpl_net.transitions:
+        if (t in decorations and
+                "xlabel" in decorations[t]):
+            with icpl_digraph.subgraph(name='cluster'+str(id(t))) as c:
+                c.attr(label=decorations[t]['xlabel'], fillcolor='white',
+                       fontcolor=decorations[t]['fontcolor'], labelloc='b',
+                       peripheries='0')
+                c.node(str(id(t)), t.label)
+        else:
+            icpl_digraph.node(str(id(t)), str(t.label))
 
     # places
-    pl_digraph.attr('node', shape='circle', fixedsize='true',
-                    width='0.75', color='black', style='filled',
-                    fillcolor='grey85', fontsize='12')
+    icpl_digraph.attr('node', shape='circle', fixedsize='true',
+                      width='0.75', color='black', style='filled',
+                      fillcolor='grey85', fontsize='12')
 
     # add places, in order by their (unique) name, to avoid undeterminism
     # in the visualization
-
     places_sort_list_im = sorted(
-        [x for x in list(pl_net.places) if x in pl_im], key=lambda x: x.name)
-    places_sort_list_fm = sorted([x for x in list(pl_net.places)
-                                  if x in pl_fm and x not in pl_im],
+        [x for x in list(icpl_net.places) if x in icpl_im], key=lambda x: x.name)
+    places_sort_list_fm = sorted([x for x in list(icpl_net.places)
+                                  if x in icpl_fm and x not in icpl_im],
                                  key=lambda x: x.name)
     places_sort_list_not_im_fm = sorted(
-        [x for x in list(pl_net.places) if x not in pl_im and x not in pl_fm],
+        [x for x in list(icpl_net.places)
+         if x not in icpl_im and x not in icpl_fm],
         key=lambda x: x.name)
     places_sort_list = (places_sort_list_im
                         + places_sort_list_not_im_fm + places_sort_list_fm)
 
     for p in places_sort_list:
         if p.info_object_type is None:
-            if p in pl_im:
-                pl_digraph.node(str(id(p)), '\u25CF', fontsize='40', fontcolor ='black')
-            elif p in pl_fm:
-                pl_digraph.node(str(id(p)), '\u25A0', fontcolor ='black',
-                                fontsize='40', peripheries='2')
+            if p in icpl_im:
+                icpl_digraph.node(str(id(p)), '\u25CF',
+                                  fontsize='40', fontcolor='black')
+            elif p in icpl_fm:
+                icpl_digraph.node(str(id(p)), '\u25A0', fontcolor='black',
+                                  fontsize='40', peripheries='2')
             else:
                 if (
                     p in decorations
                     and 'color' in decorations[p]
                     and 'label' in decorations[p]
                 ):
-                    pl_digraph.node(
+                    icpl_digraph.node(
                         str(id(p)), decorations[p]['label'],
                         color=decorations[p]['color'])
                 else:
-                    pl_digraph.node(str(id(p)), "")
-        else: #mit subgraph arbeiten
-            if p in pl_im:
-                
-                with pl_digraph.subgraph(name='cluster'+str(id(p))) as c:
-                    c.attr(label=decorations[p]['xlabel'], fillcolor ='white', 
-                        fontcolor=decorations[p]['fontcolor'], labelloc = 'b',
-                        peripheries='0')
-                    c.node(str(id(p)), '\u25CF', fontsize='40',color ='black')
+                    icpl_digraph.node(str(id(p)), "")
+        else:
+            if p in icpl_im:
 
-            elif p in pl_fm:
+                with icpl_digraph.subgraph(name='cluster'+str(id(p))) as c:
+                    c.attr(label=decorations[p]['xlabel'], fillcolor='white',
+                           fontcolor=decorations[p]['fontcolor'], labelloc='b',
+                           peripheries='0')
+                    c.node(str(id(p)), '\u25CF', fontsize='40', color='black')
 
-                with pl_digraph.subgraph(name='cluster'+str(id(p))) as c:
-                    c.attr(label=decorations[p]['xlabel'], fillcolor ='white', 
-                        fontcolor=decorations[p]['fontcolor'], labelloc = 'b',
-                        peripheries='0')
-                    c.node(str(id(p)), '\u25A0', fontsize='40',color ='black', 
-                        peripheries='2')
+            elif p in icpl_fm:
+
+                with icpl_digraph.subgraph(name='cluster'+str(id(p))) as c:
+                    c.attr(label=decorations[p]['xlabel'], fillcolor='white',
+                           fontcolor=decorations[p]['fontcolor'], labelloc='b',
+                           peripheries='0')
+                    c.node(str(id(p)), '\u25A0', fontsize='40', color='black',
+                           peripheries='2')
 
             else:
                 if (
@@ -139,21 +139,22 @@ def create_graphviz_digraph(
                     and 'color' in decorations[p]
                     and 'label' in decorations[p]
                 ):
-                    with pl_digraph.subgraph(name='cluster'+str(id(p))) as c:
-                        c.attr(label=decorations[p]['xlabel'], fillcolor ='white', 
-                            fontcolor=decorations[p]['fontcolor'], labelloc = 'b',
-                            peripheries='0')
-                        c.node(str(id(p)),decorations[p]['label'],color=decorations[p]['color'])
+                    with icpl_digraph.subgraph(name='cluster'+str(id(p))) as c:
+                        c.attr(label=decorations[p]['xlabel'], fillcolor='white',
+                               fontcolor=decorations[p]['fontcolor'], labelloc='b',
+                               peripheries='0')
+                        c.node(
+                            str(id(p)), decorations[p]['label'], color=decorations[p]['color'])
                 else:
-                    with pl_digraph.subgraph(name='cluster'+str(id(p))) as c:
-                        c.attr(label=decorations[p]['xlabel'], fillcolor ='white', 
-                            fontcolor=decorations[p]['fontcolor'], labelloc = 'b',
-                            peripheries='0')
-                        c.node(str(id(p)),'')
+                    with icpl_digraph.subgraph(name='cluster'+str(id(p))) as c:
+                        c.attr(label=decorations[p]['xlabel'], fillcolor='white',
+                               fontcolor=decorations[p]['fontcolor'], labelloc='b',
+                               peripheries='0')
+                        c.node(str(id(p)), '')
 
     # arcs
     arcs_sort_list = sorted(
-        list(pl_net.arcs), key=lambda x: (x.source.name, x.target.name))
+        list(icpl_net.arcs), key=lambda x: (x.source.name, x.target.name))
     for a in arcs_sort_list:
         if (
             a in decorations
@@ -161,21 +162,21 @@ def create_graphviz_digraph(
             and 'penwidth' in decorations[a]
             and 'labelfontsize' in decorations[a]
         ):
-            pl_digraph.edge(
+            icpl_digraph.edge(
                 str(id(a.source)), str(id(a.target)),
                 label=decorations[a]['label'], fontsize='12',
                 penwidth=decorations[a]['penwidth'],
                 labelfontsize=decorations[a]['labelfontsize'])
         elif a in decorations and 'color' in decorations[a]:
-            pl_digraph.edge(str(id(a.source)), str(id(a.target)),
-                            color=decorations[a]['color'], fontsize='12')
+            icpl_digraph.edge(str(id(a.source)), str(id(a.target)),
+                              color=decorations[a]['color'], fontsize='12')
         else:
-            pl_digraph.edge(str(id(a.source)), str(
+            icpl_digraph.edge(str(id(a.source)), str(
                 id(a.target)), fontsize='12')
 
-    pl_digraph.attr(overlap='false')
+    icpl_digraph.attr(overlap='false')
 
-    pl_digraph.format = image_format
+    icpl_digraph.format = image_format
 
-    return pl_digraph
+    return icpl_digraph
     

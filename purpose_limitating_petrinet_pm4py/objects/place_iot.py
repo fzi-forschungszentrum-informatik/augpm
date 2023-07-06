@@ -19,14 +19,16 @@ from pm4py.objects.petri_net.obj import PetriNet
 
 class InfoObjectType(object):
 
-    def __init__(self, name, personalinformation=False):
+    def __init__(self, name, personalinformation=False, confidentiality=0):
         '''
         initialize information object type by assigning 
-        * a name and
-        * information whether it contains personal information or not
+        * a name, 
+        * information whether it contains personal information or not and
+        * its confidentiality
         '''
-        self.__name = name
-        self.__personalinformation = personalinformation
+        self.__name: str = name
+        self.__personalinformation: bool = personalinformation
+        self.__confidentiality: int = confidentiality
 
     def __get_name(self):
         return self.__name
@@ -40,30 +42,43 @@ class InfoObjectType(object):
     def __set_personalinformation(self, personalinformation):
         self.__personalinformation = personalinformation
 
+    def __get_confidentiality(self):
+        return self.__confidentiality
+
+    def __set_confidentiality(self, confidentiality):
+        self.__confidentiality = confidentiality
+
     name = property(__get_name, __set_name)
     personalinformation = property(
         __get_personalinformation, __set_personalinformation)
+    confidentiality = property(
+        __get_confidentiality, __set_confidentiality)
 
 
 class PlaceIot(PetriNet.Place):
 
     def __init__(
             self, place, trans_before=None, trans_after=None,
-            info_object_type=None):
+            info_object_type=None, confidentiality=0):
         '''
-        initialize place object of Purpose Limitating Petri Net by assigning
+        initialize place object of Information Confidentiality and 
+        Purpose Limitating Petri Net by assigning
         * basic place attributes of underlying Petri Net,
         * a list of transitions executed directly before place,
-        * a list of transitions executed directly behind place and
-        * information object type that is produced by activities before or may
-          be consumed by activities behind place
+        * a list of transitions executed directly after place,
+        * an information object type that is produced by activities before or may
+          be consumed by activities behind the place and 
+        * its overall confidentiality 
         '''
         super().__init__(
             place.name, place.in_arcs,
             place.out_arcs, place.properties)
-        self.__trans_before: list[str] = list() if trans_before is None else trans_before
-        self.__trans_after: list[str] = list() if trans_after is None else trans_after
+        self.__trans_before: list[str] = list(
+        ) if trans_before is None else trans_before
+        self.__trans_after: list[str] = list(
+        ) if trans_after is None else trans_after
         self.__info_object_type: InfoObjectType = info_object_type
+        self.__confidentiality: int = confidentiality
 
     def __get_trans_before(self):
         return self.__trans_before
@@ -83,6 +98,16 @@ class PlaceIot(PetriNet.Place):
     def __get_info_object_type(self):
         return self.__info_object_type
 
+    def __get_confidentiality(self):
+        return self.__confidentiality
+
+    def __set_confidentiality(self, confidentiality):
+        self.__confidentiality = confidentiality
+
     trans_before = property(__get_trans_before, __set_trans_before)
     trans_after = property(__get_trans_after, __set_trans_after)
-    info_object_type = property(__get_info_object_type, __set_info_object_type)
+    info_object_type = property(
+        __get_info_object_type, __set_info_object_type)
+    confidentiality = property(
+        __get_confidentiality, __set_confidentiality)
+

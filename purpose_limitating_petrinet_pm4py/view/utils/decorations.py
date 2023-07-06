@@ -17,18 +17,21 @@
 from pm4py.objects.petri_net.obj import PetriNet
 
 from view.utils.place_decorations import get_place_decorations
+from view.utils.transition_decorations import get_transition_decorations
 from view.utils.arc_decorations import get_arc_decorations
 
 
-def get_earnmarking_decorations(
-        pl_net: PetriNet, decorations: dict = None) -> dict:
+def get_icpl_decorations(
+        icpl_net: PetriNet, decorations: dict = None) -> dict:
     '''
-    Get Petri Net decorations to transform it to Purpose Limitating Petri Net
+    Get Petri Net decorations to transform it to Information Confidentiality 
+    and Purpose Limitating Petri Net
 
     Parameters
     -------------
-    pl_net
-        Petri Net with spezialized PlaceIots and ArcWithPurposes
+    icpl_net
+        Petri Net with spezialized PlaceIots, TransitionResources and 
+        ArcWithPurposes
 
     Returns
     -------------
@@ -40,7 +43,21 @@ def get_earnmarking_decorations(
         decorations = {}
 
     # place decorations
+    decorations = get_place_decorations(icpl_net, decorations)
+
+    # transition decorations
+    decorations = get_transition_decorations(icpl_net, decorations)
+
+    # arc decorations
+    decorations = get_arc_decorations(icpl_net, decorations)
+
+    return decorations
+
+    # place decorations
     decorations = get_place_decorations(pl_net, decorations)
+
+    # transition decorations
+    decorations = get_transition_decorations(pl_net, decorations)
 
     # arc decorations
     decorations = get_arc_decorations(pl_net, decorations)

@@ -18,24 +18,25 @@ from pm4py.objects.petri_net.obj import PetriNet
 
 
 def get_place_decorations(
-        pl_net: PetriNet, decorations: dict = None) -> dict:
+        icpl_net: PetriNet, decorations: dict = None) -> dict:
     '''
-    Get place decorations specifically defined Purpose Limitating Petri Net
+    Get place decorations specifically defined Information Confidentiality
+    and Purpose Limitating Petri Net
     '''
     if decorations is None:
         decorations = {}
 
-    for pl_place in pl_net.places:
+    for place in icpl_net.places:
 
-        if pl_place.info_object_type is not None:
-            if pl_place.info_object_type.personalinformation:
+        if place.info_object_type is not None:
+            if place.info_object_type.personalinformation:
                 p_color = 'darkred'
             else:
                 p_color = 'darkgreen'
-            pl_place_decorations = {
-                'xlabel': str(pl_place.info_object_type.name),
+            place_decorations = {
+                'xlabel': str(place.info_object_type.name),
                 'fontcolor': p_color, 'color': 'black'
             }
-            decorations.update({pl_place: pl_place_decorations})
+            decorations.update({place: place_decorations})
 
     return decorations

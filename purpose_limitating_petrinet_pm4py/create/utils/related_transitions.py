@@ -24,7 +24,7 @@ from pm4py import get_start_activities, get_end_activities
 def get_related_transitions(
         log: pd.DataFrame(), net: PetriNet) -> Tuple[dict, dict]:
     '''
-    * Creates two dictionaries, each containing place.name as keys
+    * Create two dictionaries, each containing place.name as keys
     * The first dictionary contains a list of all transitions that are placed
       before the corresponding place
     * The second dictionary contains a list of all transitions that are placed

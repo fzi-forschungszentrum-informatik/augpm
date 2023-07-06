@@ -17,27 +17,29 @@
 from pm4py.objects.petri_net.obj import PetriNet, Marking
 from pm4py.visualization.common import gview
 
-from view.utils.decorations import get_earnmarking_decorations
+from view.utils.decorations import get_icpl_decorations
 from view.utils.digraph_creator import create_graphviz_digraph
 
 
-def view_purpose_limitating_petrinet(
-        pl_net: PetriNet, pl_im: Marking = None,
-        pl_fm: Marking = None, decorations: dict = None):
+def view_icpl_petrinet(
+        icpl_net: PetriNet, icpl_im: Marking = None,
+        icpl_fm: Marking = None, decorations: dict = None):
     '''
-    View Purpose Limitating Petrinet
+    View Information Confidentiality and Purpose Limitating Petrinet
 
     Parameters
     -----------
-    pl_net
-        Purpose Limitating Petri Net containing extended places and arcs
-    pl_im
+    icpl_net
+        Information Confidentiality and Purpose Limitating Petri Net 
+        containing extended places and arcs
+    icpl_im
         Initial Marking
-    pl_fm
+    icpl_fm
         Final Marking
     '''
 
-    pl_decorations = get_earnmarking_decorations(pl_net, decorations)
-    pl_digraph = create_graphviz_digraph(
-        pl_net, pl_im, pl_fm, decorations=pl_decorations)
-    gview.view(pl_digraph)
+    icpl_decorations = get_icpl_decorations(icpl_net, decorations)
+    icpl_digraph = create_graphviz_digraph(
+        icpl_net, icpl_im, icpl_fm, decorations=icpl_decorations)
+    gview.view(icpl_digraph)
+

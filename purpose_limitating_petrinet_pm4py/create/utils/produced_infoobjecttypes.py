@@ -22,7 +22,8 @@ from objects.place_iot import InfoObjectType
 from constants import (
     PARAMETER_CONSTANT_ACTIVITY_KEY as ACTIVITY_KEY,
     PARAMETER_CONSTANT_INFO_OBJECT_TYPE as INFO_OBJECT_TYPE,
-    PARAMETER_CONSTANT_PERSONAL_INFORMATION as PERSONAL_INFORMATION)
+    PARAMETER_CONSTANT_PERSONAL_INFORMATION as PERSONAL_INFORMATION, 
+    PARAMETER_CONSTANT_CONFIDENTIALITY as CONFIDENTIALITY)
 
 
 def produced_iot_per_activity(
@@ -39,7 +40,7 @@ def produced_iot_per_activity(
     iot_references = {}
 
     for iot_element in unique_iot:
-        iot_references.update({iot_element: ""})
+        iot_references.update({iot_element:""})
 
     for i in range(0, len(unique_activities)):
 
@@ -51,22 +52,27 @@ def produced_iot_per_activity(
 
         for value in iot_per_activity:
 
-            # if iot not initialized yet, initialize it and safe
-            # in iot_references
-
+            # if iot not initialized yet, initialize it 
             if type(iot_references[value] == str):
 
                 infoObjectType = InfoObjectType(str(value))
+
+                # personal information
                 bool_values = pd.DataFrame(
                     iot_produced.loc[iot_produced[ACTIVITY_KEY]
                                      == unique_activities[i]]
                     [PERSONAL_INFORMATION])
-
                 for j in range(0, len(bool_values)):
                     if (bool_values.iloc[j].loc[PERSONAL_INFORMATION]
                             == 'True'):
                         infoObjectType.personalinformation = True
                         break
+                
+                # confidentiality
+                iot_confidentiality = pd.DataFrame.max(
+                    iot_produced.loc[iot_produced[INFO_OBJECT_TYPE]==value]
+                    [CONFIDENTIALITY])
+                infoObjectType.confidentiality = int(iot_confidentiality)
 
                 iot_references[value] = infoObjectType
 

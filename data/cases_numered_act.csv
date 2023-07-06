@@ -1,37 +1,37 @@
-case_id;activity;timestamp
-1;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00
-1;Fahrerprofil abfragen;2021-12-30 16:31:00+01:00
-1;Streckenprofil abfragen;2021-12-30 16:31:30+01:00
-1;Fahrzeuginformationen abfragen;2021-12-30 16:31:35+01:00
-1;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00
-1;Reichweite sch‰tzen;2021-12-30 16:38:00+01:00
-2;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00
-2;Fahrerprofil abfragen;2021-12-30 16:31:00+01:00
-2;Fahrzeuginformationen abfragen;2021-12-30 16:31:30+01:00
-2;Streckenprofil abfragen;2021-12-30 16:31:35+01:00
-2;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00
-2;Notsignal senden;2021-12-30 16:38:00+01:00
-3;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00
-3;Streckenprofil abfragen;2021-12-30 16:31:00+01:00
-3;Fahrerprofil abfragen;2021-12-30 16:31:30+01:00
-3;Fahrzeuginformationen abfragen;2021-12-30 16:31:35+01:00
-3;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00
-3;Reichweite sch‰tzen;2021-12-30 16:38:00+01:00
-4;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00
-4;Streckenprofil abfragen;2021-12-30 16:31:00+01:00
-4;Fahrzeuginformationen abfragen;2021-12-30 16:31:30+01:00
-4;Fahrerprofil abfragen;2021-12-30 16:31:35+01:00
-4;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00
-4;Reichweite sch‰tzen;2021-12-30 16:38:00+01:00
-5;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00
-5;Fahrzeuginformationen abfragen;2021-12-30 16:31:00+01:00
-5;Fahrerprofil abfragen;2021-12-30 16:31:30+01:00
-5;Streckenprofil abfragen;2021-12-30 16:31:35+01:00
-5;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00
-5;Reichweite sch‰tzen;2021-12-30 16:38:00+01:00
-6;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00
-6;Fahrzeuginformationen abfragen;2021-12-30 16:31:00+01:00
-6;Streckenprofil abfragen;2021-12-30 16:31:30+01:00
-6;Fahrerprofil abfragen;2021-12-30 16:31:35+01:00
-6;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00
-6;Notsignal senden;2021-12-30 16:38:00+01:00
+case_id;activity;timestamp;resource;trustworthiness
+1;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00;System;3
+1;Fahrerprofil abfragen;2021-12-30 16:31:00+01:00;Systembestandteil A;4
+1;Streckenprofil abfragen;2021-12-30 16:31:30+01:00;Systembestandteil B;2
+1;Fahrzeuginformationen abfragen;2021-12-30 16:31:35+01:00;Systembestandteil C;2
+1;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00;System;3
+1;Reichweite sch√§tzen;2021-12-30 16:38:00+01:00;System;3
+2;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00;System;3
+2;Fahrerprofil abfragen;2021-12-30 16:31:00+01:00;Systembestandteil A;4
+2;Fahrzeuginformationen abfragen;2021-12-30 16:31:30+01:00;Systembestandteil C;2
+2;Streckenprofil abfragen;2021-12-30 16:31:35+01:00;Systembestandteil B;2
+2;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00;System;3
+2;Notsignal senden;2021-12-30 16:38:00+01:00;System;3
+3;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00;System;3
+3;Streckenprofil abfragen;2021-12-30 16:31:00+01:00;Systembestandteil B;2
+3;Fahrerprofil abfragen;2021-12-30 16:31:30+01:00;Systembestandteil A;4
+3;Fahrzeuginformationen abfragen;2021-12-30 16:31:35+01:00;Systembestandteil C;2
+3;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00;System;3
+3;Reichweite sch√§tzen;2021-12-30 16:38:00+01:00;System;3
+4;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00;System;3
+4;Streckenprofil abfragen;2021-12-30 16:31:00+01:00;Systembestandteil B;2
+4;Fahrzeuginformationen abfragen;2021-12-30 16:31:30+01:00;Systembestandteil C;2
+4;Fahrerprofil abfragen;2021-12-30 16:31:35+01:00;Systembestandteil A;4
+4;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00;System;3
+4;Reichweite sch√§tzen;2021-12-30 16:38:00+01:00;System;3
+5;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00;System;3
+5;Fahrzeuginformationen abfragen;2021-12-30 16:31:00+01:00;Systembestandteil C;2
+5;Fahrerprofil abfragen;2021-12-30 16:31:30+01:00;Systembestandteil A;4
+5;Streckenprofil abfragen;2021-12-30 16:31:35+01:00;Systembestandteil B;2
+5;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00;System;3
+5;Reichweite sch√§tzen;2021-12-30 16:38:00+01:00;System;3
+6;Einflussfaktoren abfragen;2021-12-30 16:30:00+01:00;System;3
+6;Fahrzeuginformationen abfragen;2021-12-30 16:31:00+01:00;Systembestandteil C;2
+6;Streckenprofil abfragen;2021-12-30 16:31:30+01:00;Systembestandteil B;2
+6;Fahrerprofil abfragen;2021-12-30 16:31:35+01:00;Systembestandteil A;4
+6;Einflussfaktoren analysieren;2021-12-30 16:37:00+01:00;System;3
+6;Notsignal senden;2021-12-30 16:38:00+01:00;System;3

@@ -17,29 +17,30 @@
 from pm4py.objects.petri_net.obj import PetriNet
 
 
-def get_arc_decorations(pl_net: PetriNet, decorations: dict = None) -> dict:
+def get_arc_decorations(icpl_net: PetriNet, decorations: dict = None) -> dict:
     '''
-    Get arc decorations specifically defined Purpose Limitating Petri Net 
+    Get arc decorations specifically defined Information Confidentiality 
+    and Purpose Limitating Petri Net 
     '''
     if decorations is None:
         decorations = {}
 
-    for pl_arc in pl_net.arcs:
+    for arc in icpl_net.arcs:
 
-        if len(pl_arc.purposes) != 0:
+        if len(arc.purposes) != 0:
 
-            if pl_arc.is_consumption_arc:
+            if arc.is_consumption_arc:
                 purpose_index = 'G'
             else:
                 purpose_index = 'LA'
             a_label = '{} = ['.format(purpose_index)
 
-            for purpose in pl_arc.purposes:
+            for purpose in arc.purposes:
                 a_label = a_label + purpose + ', '
             a_label = a_label[:-2] + ']'
 
-            pl_arc_decorations = {'label': a_label,
+            arc_decorations = {'label': a_label,
                                   'penwidth': '1.0', 'labelfontsize': '10'}
-            decorations.update({pl_arc: pl_arc_decorations})
+            decorations.update({arc: arc_decorations})
 
     return decorations

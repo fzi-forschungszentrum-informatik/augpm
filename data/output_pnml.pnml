@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pnml>
+  <net id="net1" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
+    <page id="n0">
+      <place id="({'Fahrerprofil abfragen'}, {'Einflussfaktoren analysieren'})">
+        <name>
+          <text>({'Fahrerprofil abfragen'}, {'Einflussfaktoren analysieren'})</text>
+        </name>
+        <informationobjecttype id="Fahrer" personalinformation="True" confidentiality="4">
+          <text>Fahrer</text>
+        </informationobjecttype>
+      </place>
+      <place id="({'Einflussfaktoren abfragen'}, {'Streckenprofil abfragen'})">
+        <name>
+          <text>({'Einflussfaktoren abfragen'}, {'Streckenprofil abfragen'})</text>
+        </name>
+      </place>
+      <place id="({'Einflussfaktoren abfragen'}, {'Fahrzeuginformationen abfragen'})">
+        <name>
+          <text>({'Einflussfaktoren abfragen'}, {'Fahrzeuginformationen abfragen'})</text>
+        </name>
+      </place>
+      <place id="start">
+        <name>
+          <text>start</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      <place id="end">
+        <name>
+          <text>end</text>
+        </name>
+      </place>
+      <place id="({'Fahrzeuginformationen abfragen'}, {'Einflussfaktoren analysieren'})">
+        <name>
+          <text>({'Fahrzeuginformationen abfragen'}, {'Einflussfaktoren analysieren'})</text>
+        </name>
+        <informationobjecttype id="Fahrzeug" personalinformation="False" confidentiality="1">
+          <text>Fahrzeug</text>
+        </informationobjecttype>
+      </place>
+      <place id="({'Streckenprofil abfragen'}, {'Einflussfaktoren analysieren'})">
+        <name>
+          <text>({'Streckenprofil abfragen'}, {'Einflussfaktoren analysieren'})</text>
+        </name>
+        <informationobjecttype id="Strecke" personalinformation="False" confidentiality="1">
+          <text>Strecke</text>
+        </informationobjecttype>
+      </place>
+      <place id="({'Einflussfaktoren analysieren'}, {'Notsignal senden', 'Reichweite schÃ¤tzen'})">
+        <name>
+          <text>({'Einflussfaktoren analysieren'}, {'Notsignal senden', 'Reichweite schÃ¤tzen'})</text>
+        </name>
+        <informationobjecttype id="Einflussfaktoren" personalinformation="False" confidentiality="3">
+          <text>Einflussfaktoren</text>
+        </informationobjecttype>
+      </place>
+      <place id="({'Einflussfaktoren abfragen'}, {'Fahrerprofil abfragen'})">
+        <name>
+          <text>({'Einflussfaktoren abfragen'}, {'Fahrerprofil abfragen'})</text>
+        </name>
+      </place>
+      <transition id="Reichweite schÃ¤tzen">
+        <name>
+          <text>Reichweite schÃ¤tzen</text>
+        </name>
+        <resource id="System" trustworthiness="3">
+          <text>System</text>
+        </resource>
+      </transition>
+      <transition id="Fahrerprofil abfragen">
+        <name>
+          <text>Fahrerprofil abfragen</text>
+        </name>
+        <resource id="Systembestandteil A" trustworthiness="4">
+          <text>Systembestandteil A</text>
+        </resource>
+      </transition>
+      <transition id="Notsignal senden">
+        <name>
+          <text>Notsignal senden</text>
+        </name>
+        <resource id="System" trustworthiness="3">
+          <text>System</text>
+        </resource>
+      </transition>
+      <transition id="Einflussfaktoren analysieren">
+        <name>
+          <text>Einflussfaktoren analysieren</text>
+        </name>
+        <resource id="System" trustworthiness="3">
+          <text>System</text>
+        </resource>
+      </transition>
+      <transition id="Streckenprofil abfragen">
+        <name>
+          <text>Streckenprofil abfragen</text>
+        </name>
+        <resource id="Systembestandteil B" trustworthiness="2">
+          <text>Systembestandteil B</text>
+        </resource>
+      </transition>
+      <transition id="Fahrzeuginformationen abfragen">
+        <name>
+          <text>Fahrzeuginformationen abfragen</text>
+        </name>
+        <resource id="Systembestandteil C" trustworthiness="2">
+          <text>Systembestandteil C</text>
+        </resource>
+      </transition>
+      <transition id="Einflussfaktoren abfragen">
+        <name>
+          <text>Einflussfaktoren abfragen</text>
+        </name>
+        <resource id="System" trustworthiness="3">
+          <text>System</text>
+        </resource>
+      </transition>
+      <arc id="2339862757632" source="Fahrerprofil abfragen" target="({'Fahrerprofil abfragen'}, {'Einflussfaktoren analysieren'})"/>
+      <arc id="2339862757536" target="Einflussfaktoren analysieren" consumption="True">
+        <purposes>
+          <text>{'Fahrzeugprofil berÃ¼cksichtigen'}</text>
+        </purposes>
+      </arc>
+      <arc id="2339862757824" source="Einflussfaktoren analysieren" target="({'Einflussfaktoren analysieren'}, {'Notsignal senden', 'Reichweite schÃ¤tzen'})" consumption="False">
+        <purposes>
+          <text>{'Notsignal senden', 'Reichweite schÃ¤tzen', 'Reichweite schï¿½tzen'}</text>
+        </purposes>
+      </arc>
+      <arc id="2339862757920" source="Notsignal senden" target="end"/>
+      <arc id="2339862758016" source="Einflussfaktoren abfragen" target="({'Einflussfaktoren abfragen'}, {'Fahrzeuginformationen abfragen'})"/>
+      <arc id="2339862758112" target="Streckenprofil abfragen"/>
+      <arc id="2339862758208" source="Fahrzeuginformationen abfragen" target="({'Fahrzeuginformationen abfragen'}, {'Einflussfaktoren analysieren'})"/>
+      <arc id="2339862758304" target="Einflussfaktoren analysieren" consumption="True">
+        <purposes>
+          <text>{'Streckenprofil berÃ¼ckischtigen'}</text>
+        </purposes>
+      </arc>
+      <arc id="2339862757584" source="Einflussfaktoren abfragen" target="({'Einflussfaktoren abfragen'}, {'Fahrerprofil abfragen'})"/>
+      <arc id="2339862757488" source="Einflussfaktoren abfragen" target="({'Einflussfaktoren abfragen'}, {'Streckenprofil abfragen'})"/>
+      <arc id="2339862757776" source="Reichweite schÃ¤tzen" target="end"/>
+      <arc id="2339862757872" target="Notsignal senden" consumption="True">
+        <purposes>
+          <text>{'Notsignal senden'}</text>
+        </purposes>
+      </arc>
+      <arc id="2339862757680" target="Einflussfaktoren abfragen"/>
+      <arc id="2339862757968" target="Fahrerprofil abfragen"/>
+      <arc id="2339862758064" target="Fahrzeuginformationen abfragen"/>
+      <arc id="2339862758160" target="Einflussfaktoren analysieren" consumption="True">
+        <purposes>
+          <text>{'Fahrerprofil berÃ¼cksichtigen'}</text>
+        </purposes>
+      </arc>
+      <arc id="2339862758256" source="Streckenprofil abfragen" target="({'Streckenprofil abfragen'}, {'Einflussfaktoren analysieren'})"/>
+      <arc id="2339862758352" target="Reichweite schÃ¤tzen" consumption="True">
+        <purposes>
+          <text>{'Reichweite schÃ¤tzen'}</text>
+        </purposes>
+      </arc>
+    </page>
+    <finalmarkings>
+      <marking>
+        <place idref="end">
+          <text>1</text>
+        </place>
+      </marking>
+    </finalmarkings>
+  </net>
+</pnml>

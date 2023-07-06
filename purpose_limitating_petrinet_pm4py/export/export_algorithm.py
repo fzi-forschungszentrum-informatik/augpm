@@ -17,33 +17,37 @@
 from pm4py.objects.petri_net.obj import PetriNet, Marking
 from pm4py.objects.petri_net.exporter.variants.pnml import export_petri_tree
 
-from export.utils.add_pl_elements import add_pl_elements
+from export.utils.add_icpl_elements import add_icpl_elements
 from export.utils.export_petri_tree import export_petri_tree
 
 
-def export_purpose_limitating_petrinet(
-        pl_net: PetriNet, pl_im: Marking,
-        pl_fm: Marking, output_filepath: str):
+def export_icpl_petrinet(
+        icpl_net: PetriNet, icpl_im: Marking,
+        icpl_fm: Marking, output_filepath: str):
     '''
-    Export Purpose Limitating Petri Net to PNML file
+    Export Information COnfidentiality and Purpose Limitating 
+    Petri Net to PNML file
 
     Parameters
     ----------
-    pl_net
-        Purpose Limitating Petri Net containing extended places and arcs
-    pl_im
+    icpl_net
+        Information Confidentiality and Purpose Limitating 
+        Petri Net containing extended places and arcs
+    icpl_im
         Initial marking
-    pl_fm
+    icpl_fm
         Final marking
     output_filepath
         filepath on which PNML file should be stored
     '''
     # via PM4Py
-    tree = export_petri_tree(pl_net, pl_im, pl_fm)
+    tree = export_petri_tree(icpl_net, icpl_im, icpl_fm)
 
-    # add elements of Purpose Limitating Petri Net
-    tree = add_pl_elements(pl_net, tree)
+    # add elements of Information Confidentiality and
+    # Purpose Limitating Petri Net
+    tree = add_icpl_elements(icpl_net, tree)
 
-    # write pnml file for Purpose Limitating Petri Net
+    # write pnml file for Information Confidentiality and
+    # Purpose Limitating Petri Net
     tree.write(output_filepath, pretty_print=True,
                xml_declaration=True, encoding='UTF-8')

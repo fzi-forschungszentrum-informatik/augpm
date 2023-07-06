@@ -20,7 +20,8 @@ from objects.place_iot import InfoObjectType
 
 from constants import (
     PARAMETER_CONSTANT_ACTIVITY_KEY as ACTIVITY_KEY,
-    PARAMETER_CONSTANT_INFO_OBJECT_TYPE as INFO_OBJECT_TYPE)
+    PARAMETER_CONSTANT_INFO_OBJECT_TYPE as INFO_OBJECT_TYPE, 
+    PARAMETER_CONSTANT_CONFIDENTIALITY as CONFIDENTIALITY)
 
 
 def consumed_iot_per_activity(
@@ -46,10 +47,24 @@ def consumed_iot_per_activity(
                     and type(iot_references[value]) == str):
 
                 infoObjectType = InfoObjectType(str(value))
-                iot_references[value] = infoObjectType
+
+                # confidentiality
+                iot_confidentiality = pd.DataFrame.max(
+                    iot_consumed.loc[iot_consumed[INFO_OBJECT_TYPE]==value]
+                    [CONFIDENTIALITY])
+                infoObjectType.confidentiality = int(iot_confidentiality)
+
+                iot_references[value] = infoObjectType 
 
             else:
                 infoObjectType = InfoObjectType(str(value))
+                
+                # confidentiality
+                iot_confidentiality = pd.DataFrame.max(
+                    iot_consumed.loc[iot_consumed[INFO_OBJECT_TYPE]==value]
+                    [CONFIDENTIALITY])
+                infoObjectType.confidentiality = int(iot_confidentiality)
+
                 iot_references.update({value: infoObjectType})
 
             list_help.append(iot_references[value])

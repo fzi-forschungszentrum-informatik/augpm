@@ -16,32 +16,34 @@
 
 from pandas import read_csv
 
-from create.create_algorithm import create_purpose_limitating_petrinet
-from view.view_algorithm import view_purpose_limitating_petrinet
-from export.export_algorithm import export_purpose_limitating_petrinet
+from create.create_algorithm import create_icpl_petrinet
+from view.view_algorithm import view_icpl_petrinet
+from export.export_algorithm import export_icpl_petrinet
 
 
 if __name__ == "__main__":
 
-    # notw. Attribute: case_id, activity, timestamp
+    # required attributes: case_id, activity, timestamp, resource
+    # desired attribute: trustworthiness
     log = read_csv(
-        'C:/Workspace/data/cases_numered_act.csv',
+        'C:/Workspace/AugPM/data/cases_numered_act.csv',
         sep=";", encoding='latin1', dtype='str')
 
-    # notw. Attribute: activity, info_object_type,
-    # consumption_purpose, opt. Attribute: case_id, place_from_type
+    # required attributes: activity, info_object_type, consumption_purpose
+    # desired attributes: case_id, place_from_type
     IT_consumed = read_csv(
-        'C:/Workspace/data/IT_consumed_act.csv',
+        'C:/Workspace/AugPM/data/IT_consumed_act.csv',
         sep=";", encoding='latin1', dtype='str')
 
-    # notw. Attribute: activity, info_object_type, (personal_information),
-    # opt. Attribute: case_id, permitted_purposes
+    # required attributes: activity, info_object_type, (personal_information),
+    # desired attributes: case_id, permitted_purposes
     IT_produced = read_csv(
-        'C:/Workspace/data/IT_produced_act.csv',
+        'C:/Workspace/AugPM/data/IT_produced_act.csv',
         sep=";", encoding='latin1', dtype='str')
 
-    pl_net, pl_im, pl_fm = create_purpose_limitating_petrinet(
+    icpl_net, icpl_im, icpl_fm = create_icpl_petrinet(
         log, IT_consumed, IT_produced)
-    view_purpose_limitating_petrinet(pl_net, pl_im, pl_fm)
-    export_purpose_limitating_petrinet(
-        pl_net, pl_im, pl_fm, 'C:/Workspace/purpose_limitating_petri_net/pnml.pnml')
+    view_icpl_petrinet(icpl_net, icpl_im, icpl_fm)
+    export_icpl_petrinet(
+        icpl_net, icpl_im, icpl_fm,
+        'C:/Workspace/AugPM/data/output_pnml.pnml')
